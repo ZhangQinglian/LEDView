@@ -1,4 +1,4 @@
-package com.example.scott.ledview;
+package com.zql.android.led;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

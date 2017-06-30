@@ -1,4 +1,4 @@
-package com.example.scott.ledview;
+package com.zql.android.led;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -34,7 +34,7 @@ public class LEDView extends SurfaceView implements SurfaceHolder.Callback,Runna
 
     private int mLEDHight = 0, mLEDWidth = 0;
 
-    private final int kFPS = 1000/60;
+    private final int kFPS = 1000/20;
 
     private TextPaint mTextPaint ;
 
@@ -42,11 +42,13 @@ public class LEDView extends SurfaceView implements SurfaceHolder.Callback,Runna
 
     private int kRawBitmapHight = 40;
 
-    private int mLEDColor = Color.RED;
+    private int mLEDColor = Color.parseColor("#EC3A36");
 
     private int kTextBaseLine = kRawBitmapHight/2 + kTextSize/2 - kTextSize/10;
 
     private LEDData mLEDData;
+
+    private long mT1,mT2,mTD;
     public LEDView(Context context) {
         this(context,null);
     }
@@ -74,6 +76,23 @@ public class LEDView extends SurfaceView implements SurfaceHolder.Callback,Runna
         if(ledPixel>0){
             kRawBitmapHight = ledPixel;
         }
+        mLEDData = null;
+        makeRawBitmap();
+    }
+
+    public void setLEDContent(String content){
+        if(content == null || content.trim().length() == 0){
+            mLEDStr = "            Hello LED \uD83D\uDE00";
+        }else {
+            mLEDStr = "            "+content;
+        }
+        mLEDData = null;
+        makeRawBitmap();
+    }
+
+    public void setLEDTextColor(int color){
+        mLEDColor = color;
+        mLEDData = null;
         makeRawBitmap();
     }
 
@@ -81,11 +100,12 @@ public class LEDView extends SurfaceView implements SurfaceHolder.Callback,Runna
         return mLEDColor;
     }
     private void init(){
+
+        mHolder = getHolder();
+        mHolder.addCallback(this);
         mThread = new HandlerThread("led-looper");
         mThread.start();
         mHandler = new Handler(mThread.getLooper());
-        mHolder = getHolder();
-        mHolder.addCallback(this);
 
         mTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
 
@@ -105,9 +125,10 @@ public class LEDView extends SurfaceView implements SurfaceHolder.Callback,Runna
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         Log.d("scott"," surface creates");
-
-        mHandler.postDelayed(this,kFPS);
-        setLED(" ",mLEDColor,kTextSize,kRawBitmapHight);
+        if(mLEDData == null){
+            mHandler.postDelayed(this,kFPS);
+            setLED(mLEDStr,mLEDColor,kTextSize,kRawBitmapHight);
+        }
     }
 
     @Override
@@ -118,13 +139,11 @@ public class LEDView extends SurfaceView implements SurfaceHolder.Callback,Runna
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
         Log.d("scott"," surface destroy");
-        synchronized (LEDView.this){
-            mLEDData = null;
-        }
     }
 
     private void makeRawBitmap(){
         if(mLEDStr == null || mLEDStr.trim().length() == 0) return;
+        if(mLEDData != null) return;
 
         Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
@@ -182,6 +201,9 @@ public class LEDView extends SurfaceView implements SurfaceHolder.Callback,Runna
 
     @Override
     public void run() {
+
+        mT1 = System.currentTimeMillis();
+        if(mHolder == null) return;
         Canvas LEDCanvas = mHolder.lockCanvas();
         if(LEDCanvas != null){
             try {
@@ -190,8 +212,8 @@ public class LEDView extends SurfaceView implements SurfaceHolder.Callback,Runna
                     int fixH = mLEDData.getFixLEDHeight();
                     int fixW = mLEDData.getFixLEDWidth();
 
-                    for(int i = 0;i<fixH;i++){
-                        for(int j = 0;j<fixW;j++){
+                    for(int i = 0;i<fixH;i+=2){
+                        for(int j = 0;j<fixW;j+=2){
                             int pX = j*mLEDData.scale;
                             int pY = i*mLEDData.scale;
                             if(mLEDData.getPixelColor(i,j) != 0){
@@ -208,8 +230,14 @@ public class LEDView extends SurfaceView implements SurfaceHolder.Callback,Runna
                 mHolder.unlockCanvasAndPost(LEDCanvas);
             }
         }
+        mT2 = System.currentTimeMillis();
+        mTD = mT2 - mT1;
+        if(mTD < kFPS){
+            mHandler.postDelayed(this,kFPS-mTD);
+        }else {
+            mHandler.post(this);
+        }
 
-        mHandler.postDelayed(this,kFPS);
     }
 
     private class LEDFrame{

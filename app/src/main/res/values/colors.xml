@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">@color/color_black</color>
+    <color name="colorPrimaryDark">@color/color_black</color>
+    <color name="colorAccent">@color/color_1</color>
+
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_black">#000000</color>
+    <color name="color_1">#EC3A36</color>
+    <color name="color_2">#A759D5</color>
+    <color name="color_3">#FBC231</color>
+    <color name="color_4">#839DF3</color>
+    <color name="color_5">#523DAC</color>
+    <color name="color_6">#0B7DC3</color>
+    <color name="color_7">#B84E3C</color>
+    <color name="color_8">#836489</color>
+    <color name="color_9">#353DA3</color>
+    <color name="color_10">#FF77B4</color>
+    <color name="color_11">#23452D</color>
+    <color name="color_12">#D87229</color>
+    <color name="color_13">#D99F5B</color>
+    <color name="color_14">#3494A8</color>
+    <color name="color_15">#02E6FE</color>
+
+    <integer-array name="colors">
+        <item>@color/color_1</item>
+        <item>@color/color_2</item>
+        <item>@color/color_3</item>
+        <item>@color/color_4</item>
+        <item>@color/color_5</item>
+        <item>@color/color_6</item>
+        <item>@color/color_7</item>
+        <item>@color/color_8</item>
+        <item>@color/color_9</item>
+        <item>@color/color_10</item>
+        <item>@color/color_11</item>
+        <item>@color/color_12</item>
+        <item>@color/color_13</item>
+        <item>@color/color_14</item>
+        <item>@color/color_15</item>
+    </integer-array>
 </resources>
