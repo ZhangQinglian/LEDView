@@ -14,4 +14,4 @@ public void setLED(String str ,@ColorInt int ledColor, int ledTextSize,int ledPi
 - str: What you want to show in LEDView.
 - ledColor: The color of LEDView.
 - ledTextSize: LEDView's text size.
-- ledPixel: Pixel count of you LEDView in vertical axis. 
+- ledPixel: Pixel count of you LEDView in vertical axis.
