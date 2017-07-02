@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Message;
 import android.support.annotation.ColorInt;
 import android.text.TextPaint;
 import android.util.AttributeSet;
@@ -49,6 +50,10 @@ public class LEDView extends SurfaceView implements SurfaceHolder.Callback,Runna
     private LEDData mLEDData;
 
     private long mT1,mT2,mTD;
+
+    private boolean mIsDestory = false;
+
+    private final String kSpace = "";
     public LEDView(Context context) {
         this(context,null);
     }
@@ -65,9 +70,9 @@ public class LEDView extends SurfaceView implements SurfaceHolder.Callback,Runna
 
     public void setLED(String str ,@ColorInt int ledColor, int ledTextSize,int ledPixel){
         if(str == null || str.trim().length() == 0){
-            mLEDStr = "            Hello LED \uD83D\uDE00";
+            mLEDStr = kSpace + "Hello LED \uD83D\uDE00";
         }else {
-            mLEDStr = "   " + str + "   ";
+            mLEDStr = kSpace + str;
         }
         mLEDColor = ledColor;
         if(ledTextSize > 0){
@@ -82,9 +87,9 @@ public class LEDView extends SurfaceView implements SurfaceHolder.Callback,Runna
 
     public void setLEDContent(String content){
         if(content == null || content.trim().length() == 0){
-            mLEDStr = "            Hello LED \uD83D\uDE00";
+            mLEDStr = kSpace + "Hello LED \uD83D\uDE00";
         }else {
-            mLEDStr = "            "+content;
+            mLEDStr = kSpace+content;
         }
         mLEDData = null;
         makeRawBitmap();
@@ -96,6 +101,17 @@ public class LEDView extends SurfaceView implements SurfaceHolder.Callback,Runna
         makeRawBitmap();
     }
 
+    public void setLEDSize(int size){
+        kRawBitmapHight = size;
+        mLEDData = null;
+        makeRawBitmap();
+    }
+
+    public void setLEDTextSize(int size){
+        kTextSize = size;
+        mLEDData = null;
+        makeRawBitmap();
+    }
     public int getLEDColor(){
         return mLEDColor;
     }
@@ -125,9 +141,12 @@ public class LEDView extends SurfaceView implements SurfaceHolder.Callback,Runna
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         Log.d("scott"," surface creates");
+        mIsDestory = false;
         if(mLEDData == null){
             mHandler.postDelayed(this,kFPS);
             setLED(mLEDStr,mLEDColor,kTextSize,kRawBitmapHight);
+        }else {
+            mHandler.postDelayed(this,kFPS);
         }
     }
 
@@ -139,6 +158,7 @@ public class LEDView extends SurfaceView implements SurfaceHolder.Callback,Runna
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
         Log.d("scott"," surface destroy");
+        mIsDestory = true;
     }
 
     private void makeRawBitmap(){
@@ -203,6 +223,7 @@ public class LEDView extends SurfaceView implements SurfaceHolder.Callback,Runna
     public void run() {
 
         mT1 = System.currentTimeMillis();
+        if(mIsDestory) return;
         if(mHolder == null) return;
         Canvas LEDCanvas = mHolder.lockCanvas();
         if(LEDCanvas != null){

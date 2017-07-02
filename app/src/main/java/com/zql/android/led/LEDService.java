@@ -16,26 +16,28 @@ public class LEDService {
 
     private static LEDService sInstance;
 
-    private LEDDao mLEDDao ;
-    private LEDService(){
+    private LEDDao mLEDDao;
+
+    private LEDService() {
         mLEDDao = LEDApplication.own().getDatabase().getLEDDao();
     }
 
-    public synchronized static LEDService own(){
-        if(sInstance == null){
+    public synchronized static LEDService own() {
+        if (sInstance == null) {
             sInstance = new LEDService();
         }
         return sInstance;
     }
 
-    public List<LEDEntity> getLEDData(){
+    public List<LEDEntity> getLEDData() {
         return mLEDDao.getAllLEDEntities();
     }
 
-    public void update(LEDEntity ...entities){
+    public void update(LEDEntity... entities) {
         mLEDDao.updateLEDEntities(entities);
     }
-    public void update_A(final LEDEntity ...entities){
+
+    public void update_A(final LEDEntity... entities) {
         Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
             public void run() {
@@ -43,32 +45,28 @@ public class LEDService {
             }
         });
     }
-    public void initFirstLED(){
-        Executors.newSingleThreadExecutor().execute(new Runnable() {
-            @Override
-            public void run() {
-                List<LEDEntity> ledEntities = mLEDDao.getAllLEDEntities();
-                if(ledEntities.size() == 0){
-                    LEDEntity first = new LEDEntity();
-                    first.content = "            Hello LED \uD83D\uDE00";
-                    first.bgColor = Color.BLACK;
-                    first.textColor = Color.RED;
-                    first.textSize = 30;
-                    first.ledSize = 40;
-                    mLEDDao.insertLEDEntities(first);
-                }
-            }
-        });
+
+    public void initFirstLED() {
+        List<LEDEntity> ledEntities = mLEDDao.getAllLEDEntities();
+        if (ledEntities.size() == 0) {
+            LEDEntity first = new LEDEntity();
+            first.content = "Hello LED \uD83D\uDE00";
+            first.bgColor = Color.BLACK;
+            first.textColor = Color.RED;
+            first.textSize = 30;
+            first.ledSize = 40;
+            mLEDDao.insertLEDEntities(first);
+        }
     }
 
-    public void addLED(){
+    public void addLED() {
         Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
             public void run() {
                 List<LEDEntity> ledEntities = mLEDDao.getAllLEDEntities();
-                if(ledEntities.size() <10){
+                if (ledEntities.size() < 10) {
                     LEDEntity first = new LEDEntity();
-                    first.content = "            Hello LED \uD83D\uDE00";
+                    first.content = "Hello LED \uD83D\uDE00";
                     first.bgColor = Color.BLACK;
                     first.textColor = Color.RED;
                     first.textSize = 30;

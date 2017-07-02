@@ -3,6 +3,8 @@ package com.zql.android.led.data;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +22,6 @@ import com.zql.android.led.LEDService;
 import com.zql.android.led.LEDView;
 import com.zql.android.led.R;
 
-import java.util.concurrent.Executors;
 
 /**
  * Created by scott on 2017/6/30.
@@ -28,7 +29,6 @@ import java.util.concurrent.Executors;
 
 public class LEDDashboard extends CardView {
 
-    private int position ;
     private LEDView ledView;
     private LEDEntity entity;
     private AppCompatActivity activity;
@@ -45,8 +45,7 @@ public class LEDDashboard extends CardView {
         super(context, attrs, defStyleAttr);
     }
 
-    public void init(int listPosition, final LEDEntity entity, final AppCompatActivity activity){
-        this.position = listPosition;
+    public void init(final LEDEntity entity, final AppCompatActivity activity){
         this.entity = entity;
         this.activity = activity;
         ledView = findViewById(R.id.led_view);
@@ -56,6 +55,7 @@ public class LEDDashboard extends CardView {
             public void onClick(View view) {
 
                 final EditText textView = new EditText(getContext());
+                textView.setText(entity.content);
                 ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 textView.setLayoutParams(layoutParams);
                 textView.setGravity(Gravity.CENTER);
@@ -81,7 +81,12 @@ public class LEDDashboard extends CardView {
         });
 
         final View changeTextColor = findViewById(R.id.btn_change_text_color);
-        changeTextColor.setBackgroundColor(entity.textColor);
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+            int[][] status = {{}};
+            int[] colors = {entity.textColor};
+            ColorStateList colorStateList = new ColorStateList(status,colors);
+            changeTextColor.setBackgroundTintList(colorStateList);
+        }
         changeTextColor.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,13 +98,63 @@ public class LEDDashboard extends CardView {
                                 if(positiveResult){
                                     ledView.setLEDTextColor(color);
                                     entity.textColor = color;
-                                    changeTextColor.setBackgroundColor(color);
+                                    int[] colors = {color};
+                                    if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+                                        int[][] status = {{}};
+                                        ColorStateList colorStateList = new ColorStateList(status,colors);
+                                        changeTextColor.setBackgroundTintList(colorStateList);
+                                    }
                                     LEDService.own().update_A(entity);
                                 }
                             }
                         }).setDismissOnColorSelected(true)
                         .setSelectedColor(entity.textColor)
                         .build().show(activity.getSupportFragmentManager(),"color-picker");
+            }
+        });
+
+        View changeLedSize = findViewById(R.id.btn_change_led_size);
+        changeLedSize.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String[] size = new String[]{"10","20","30","40","50","60"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("修改LED垂直像素个数")
+                        .setItems(size, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String s = size[i];
+                                int int_s = Integer.parseInt(s);
+                                entity.ledSize = int_s;
+                                ledView.setLEDSize(int_s);
+                                LEDService.own().update_A(entity);
+                            }
+                        })
+                        .setCancelable(true)
+                        .show();
+            }
+        });
+
+
+        View changeLedTextSize = findViewById(R.id.btn_change_led_text_size);
+        changeLedTextSize.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String[] size = new String[]{"10","20","30","40","50","60"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("修改LED文本尺寸")
+                        .setItems(size, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String s = size[i];
+                                int int_s = Integer.parseInt(s);
+                                entity.textSize = int_s;
+                                ledView.setLEDTextSize(int_s);
+                                LEDService.own().update_A(entity);
+                            }
+                        })
+                        .setCancelable(true)
+                        .show();
             }
         });
     }

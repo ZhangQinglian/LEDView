@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="300dp"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginBottom="20dp"
@@ -16,10 +16,10 @@
     <com.zql.android.led.LEDView
         android:id="@+id/led_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="230dp" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:orientation="horizontal"
         android:layout_gravity="bottom"
         android:gravity="center_vertical">
