@@ -16,16 +16,36 @@ public void setLED(String str ,@ColorInt int ledColor, int ledTextSize,int ledPi
 - ledTextSize: LEDView's text size.
 - ledPixel: Pixel count of you LEDView in vertical axis.
 
-    Copyright 2017 Qinglian.Zhang
+### Other methods
+```java
+// change above args 'str'
+public void setLEDContent(String content)
+```
+```java
+// change above args 'ledColor'
+public void setLEDTextColor(int color)
+```
+```java
+// change above args 'ledPixel'
+public void setLEDSize(int size)
+```
+```java
+// change above args 'ledTextSize'
+public void setLEDTextSize(int size)
+```
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+```
+Copyright 2017 Qinglian.Zhang
 
-      http://www.apache.org/licenses/LICENSE-2.0
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
