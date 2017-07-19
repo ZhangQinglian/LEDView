@@ -1,10 +1,13 @@
 # LEDView
 
-[YouTube Address](https://youtu.be/kLp5kWkhPHE)
+**The LedView can convert any of your input into led content.You can also customize color, text size, pixel size**
+
+
+[YouTube Address](https://youtu.be/6CuzZqJUGjM)
 
 [Bilibili Address](http://www.bilibili.com/video/av11323144/)
 
-![GIF](http://7xprgn.com1.z0.glb.clouddn.com/android-led-view.gif)
+![GIF](http://7xprgn.com1.z0.glb.clouddn.com/device-2017-07-19-094524.png)
 
 ## Usage
 
