@@ -7,16 +7,11 @@
     android:layout_height="match_parent"
     tools:context="com.zql.android.led.HomeActivity">
 
-    <com.zql.android.led.LEDView
-        android:id="@+id/led_about"
-        android:layout_width="match_parent"
-        android:layout_height="80dp" />
-
     <com.zql.android.led.data.LEDDashboard
         android:id="@+id/led_dashboard"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_below="@id/led_about"
+        android:layout_centerInParent="true"
         android:layout_marginTop="0dp"
         android:clickable="true"
         app:cardBackgroundColor="@color/color_white"

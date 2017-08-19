@@ -1,6 +1,5 @@
 package com.zql.android.led.data;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
@@ -13,9 +12,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.thebluealliance.spectrum.SpectrumDialog;
 import com.zql.android.led.LEDService;
@@ -59,13 +56,12 @@ public class LEDDashboard extends CardView {
                 ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 textView.setLayoutParams(layoutParams);
                 textView.setGravity(Gravity.CENTER);
-
+                textView.setHint(R.string.input_hint);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("修改LED内容")
-                        .setMessage("请输入你要显示的内容")
+                builder.setTitle(R.string.modity_led_content)
                         .setCancelable(true)
-                        .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.comm_ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 String content = textView.getText().toString();
@@ -108,7 +104,7 @@ public class LEDDashboard extends CardView {
                                 }
                             }
                         }).setDismissOnColorSelected(true)
-                        .setSelectedColor(entity.textColor)
+                        .setSelectedColor(entity.textColor).setTitle(R.string.choose_color)
                         .build().show(activity.getSupportFragmentManager(),"color-picker");
             }
         });
@@ -119,7 +115,7 @@ public class LEDDashboard extends CardView {
             public void onClick(View view) {
                 final String[] size = new String[]{"10","20","30","40","50","60"};
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("修改LED垂直像素个数")
+                builder.setTitle(R.string.modify_led_pixel)
                         .setItems(size, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -142,7 +138,7 @@ public class LEDDashboard extends CardView {
             public void onClick(View view) {
                 final String[] size = new String[]{"10","20","30","40","50","60"};
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("修改LED文本尺寸")
+                builder.setTitle(R.string.modify_led_text_size)
                         .setItems(size, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {

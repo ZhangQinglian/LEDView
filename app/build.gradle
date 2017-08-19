@@ -18,10 +18,20 @@ android {
             }
         }
     }
+    signingConfigs {
+        release {
+            storeFile file("/Users/scott/soft/zql.jks")
+            storePassword "zqlxtt320683"
+            keyAlias "zql"
+            keyPassword "zqlxtt320683"
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }

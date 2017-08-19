@@ -2,8 +2,11 @@ package com.zql.android.led;
 
 import android.content.Intent;
 import android.os.PowerManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.zql.android.led.data.LEDDashboard;
@@ -37,11 +40,6 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        LEDView ledView = (LEDView) findViewById(R.id.led_about);
-        ledView.setLED("  ~Designed by Qinglian.Zhang. Contact me via qinglian.zhang@outlook.com \uD83D\uDE01",
-                getResources().getColor(R.color.color_white),20,50);
-
     }
 
 
@@ -69,5 +67,20 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.app,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.about){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.about).setMessage(R.string.about_message).setCancelable(true).show();
+        }
+        return true;
     }
 }

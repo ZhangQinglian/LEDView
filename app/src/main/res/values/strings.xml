@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">LED板</string>
+    <string name="app_name">LED Scrollers</string>
+    <string name="input_hint">Input any thing what you want to show</string>
+    <string name="modity_led_content">Modify LED Content</string>
+    <string name="comm_ok">OK</string>
+    <string name="comm_cancel">Cancel</string>
+    <string name="modify_led_pixel">Modify LED Density</string>
+    <string name="modify_led_text_size">Modify LED Font Size</string>
+    <string name="choose_color">Choose A Color</string>
+    <string name="about">About</string>
+    <string name="about_message">Version:0.1\nAuthor:Bugoaway \nE-mail:bugoaway@gmail.com</string>
 </resources>

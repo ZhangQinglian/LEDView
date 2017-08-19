@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">LED显示屏</string>
+    <string name="input_hint">输入任何你想要显示的内容</string>
+    <string name="modity_led_content">修改LED显示内容</string>
+    <string name="comm_ok">确定</string>
+    <string name="comm_cancel">取消</string>
+    <string name="modify_led_pixel">修改LED密度</string>
+    <string name="modify_led_text_size">修改LED字体尺寸</string>
+    <string name="choose_color">选择LED显示颜色</string>
+    <string name="about">关于</string>
+    <string name="about_message">版本：0.1\n作者：Bugoaway \n联系我：bugoaway@gmail.com</string>
+</resources>
