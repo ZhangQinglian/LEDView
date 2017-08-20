@@ -9,7 +9,7 @@
 
 # Google Play 
 
-[Google Play](https://play.google.com/store/apps/details?id=com.zql.android.led)
+<a href='https://play.google.com/store/apps/details?id=com.zql.android.led&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
 
 
 ![GIF](http://7xprgn.com1.z0.glb.clouddn.com/device-2017-07-19-094524.png)
