@@ -7,6 +7,11 @@
 
 [Bilibili Address](http://www.bilibili.com/video/av11323144/)
 
+# Google Play 
+
+[Google Play](https://play.google.com/store/apps/details?id=com.zql.android.led)
+
+
 ![GIF](http://7xprgn.com1.z0.glb.clouddn.com/device-2017-07-19-094524.png)
 
 ## Usage
